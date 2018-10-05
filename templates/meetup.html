@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/index.css') }}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<title>{{info['name']}}</title>
+	<style>
+		#meetUpInfo{
+			margin-left:10px;
+			text-align:center;
+			line-height: 2;
+			font-size: 20px;
+			font-family: Arial;}
+		.col-md-6{
+			border-right: solid black;
+		}
+		#weatherInfo{
+			text-align: center;
+			margin-left:17%;
+		}
+		#weatherInfo table, th, td{
+			
+			text-align: center;
+			border: solid;
+		}
+		.header{
+			margin-bottom: 25px;
+		}
+		.info {
+
+			border-top: 1px black solid;
+			text-align: left;
+			font-size:16px;
+		}
+		.info h2 {
+			margin-top: 10px;
+			text-align: center;
+			font-style: bold;
+		}
+
+		#restaurants li{
+			text-align: center;
+			list-style-type: none;
+		}
+		#restaurants button {
+			text-align: center;
+		}
+		.updates {
+			color: red;
+		}
+
+		.asdf {
+			margin-top: 25px;
+		}
+	</style>
+</head>
+<body>
+	<div class="row" id="header">
+		<div class="col-md-1"></div>
+		<div class="col-md-5"><h1>{{info['name']}}</h1></div>
+		<div class="col-md-6">
+		<a href="/home/{{user}}">
+			<button type="button" class="btn btn-primary" name="button">View All Meets</button>
+		</a>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-6">
+			<div id="meetUpInfo">
+			<p><strong>Where: </strong>{{info['address']}}</p>
+			<p><strong>When: </strong>{{info['meetup_time']}} on {{info['meetup_date']}}</p>
+			<p><strong>Who: </strong>{{user}}, {{info['invites']}}<p>
+			<p>You are {{distance}} meters away from your meetup spot.</p>
+			{%for up in updates%}
+			<li class="updates">{{up['user']}} was {{up['distance']}} meters away from the meetup spot at {{up['time'][:8]}}</li>
+			{%endfor%}
+			<div class="asdf">
+			<form action="" method = "POST">
+				<input type="text" name="distance" hidden value="{{distance}}">
+				<input type="submit" name="submit" value="Share your location to meetup group!">
+			</form>
+			</div>
+			<br>
+			<div class="info">
+				<h2>Directions from your location:</h2>
+				<ol>
+				{% for d in directions %}
+					<li>{{d}}</li>
+				{% endfor %}
+				</ol>
+			</div>
+			<div class = "info" id='restaurants'>
+				<h2>Restaurants around your meetup: </h2>
+				<ul>
+				{% for r in restaurants %}
+					<li>
+						<p><u>{{r['title']}}</u></p>
+						<p>{{r['vicinity'].replace("<br/>", " ")}}</p>
+					</li>
+				{% endfor %}
+				</ul>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="col-md-6">
+		<div id="weatherInfo">
+			<h4>Weather on meetup day:</h4>
+
+			<table>
+				<tr>
+					<th></th>
+					<th>Time</th>
+					<th>Temperature</th>
+					<th>Description</th>
+				</tr>
+				{% for w in weathers%}
+				<tr>
+					<td><img src="{{w.iconLink}}"></td>
+					<td>{{w.localTime[:2] + ':00'}}</td>
+					<td>{{((1.8 * (w.temperature|int)) + 32)|int }}</td>
+					<td>{{w.description}}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Start a Meetup</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/index.css') }}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<style media="screen">
+		input{
+			border: none;
+			border-bottom: solid;
+			border-color: #c9ced6;
+			font-size: 24px;
+			padding:10px;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="topImg">
+		<h1>Create A Meet Up</h1>
+	</div>
+	<br>
+	<br>
+	<div class="box">
+		<form class="form" action="/create" method="POST">
+			<div class="row">
+				<div class="col-sm-12">
+					<input type="text" name="user" value= {{user}} readonly hidden>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<input type="text" placeholder="Name of Meetup" name="name">
+				</div>
+				<div class="col-sm-3">
+					<input type="text" placeholder="Address and City" name="address">
+				</div>
+				<div class="col-sm-3"></div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-3">
+					<input type="date" placeholder="Date"name="meetup_date">
+				</div>
+				<div class="col-sm-3">
+					<input type="time" placeholder="Time" name="meetup_time">
+				</div>
+				<div class="col-sm-3"></div>
+			</div>
+
+			<br>
+			<div class="friends">
+				<p>Invite your friends!</p>
+				<textarea rows="5" name="invites"></textarea>
+				<br>
+			</div>
+
+			<button type="submit" class="btn btn-primary" name="submit"> Create! </button>
+		</form>
+	</div>
+</body>
+</html>
+
+	<!--
+
+<form action='/create' method='POST'>
+	<p>Name of Meetup:</p>
+	<input type="text" name="name">
+	<p>Where?</p>
+	<input type="text" name="address">
+	<p>When?</p>
+	<input type="date" name="meetup_date">
+	<input type="time" name="meetup_time">
+	<br>
+	<p>Invite your friends!</p>
+	<textarea rows="10" name="invites"></textarea>
+	<br>
+	<input type="submit" name="submit" value="Start!">
+</form>
+!-->
+
